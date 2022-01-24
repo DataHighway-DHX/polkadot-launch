@@ -1,0 +1,38 @@
+version: '3'
+services:
+  sandbox:
+    # uses image build from Dockerfile in current directory
+    build:
+      context: .
+    # forward to host machine port X from container port Y 
+    ports:
+      # relay-chain
+      # alice
+      - 30336:30336 # TCP
+      - 9947:9947 # WS
+      - 9936:9936 # RPC
+      # bob
+      - 30337:30337
+      - 9948:9948
+      - 9937:9937
+      # charlie
+      - 30338:30338
+      - 9949:9949
+      - 9938:9938
+      # dave
+      - 30339:30339
+      - 9950:9950
+      - 9939:9939
+      # parachains
+      # 1 - alice
+      - 31200:31200
+      - 9911:9911
+      - 9988:9988
+      # 2 - alice
+      - 31300:31300
+      - 9922:9922
+      - 9999:9999
+    image: polkadot-launch-sandbox:tag
+    volumes:
+      - .:/polkadot-launch
+    command: tail -f /dev/null
