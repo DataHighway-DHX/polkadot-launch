@@ -1,87 +1,84 @@
 {
-	"relaychain": {
-		"bin": "./bin/polkadot",
-		"chain": "rococo-local",
-		"nodes": [
-			{
-				"name": "alice",
-				"wsPort": 9944,
-				"port": 30444
-			},
-			{
-				"name": "bob",
-				"wsPort": 9955,
-				"port": 30555
-			},
-			{
-				"name": "charlie",
-				"wsPort": 9966,
-				"port": 30666
-			},
-			{
-				"name": "dave",
-				"wsPort": 9977,
-				"port": 30777
-			}
-		],
-		"genesis": {
-			"runtime": {
-				"runtime_genesis_config": {
-					"configuration": {
-						"config": {
-							"validation_upgrade_frequency": 10,
-							"validation_upgrade_delay": 10
-						}
-					}
-				}
-			}
-		}
-	},
-	"parachains": [
-		{
-			"bin": "./bin/polkadot-collator",
-			"id": "200",
-			"balance": "1000000000000000000000",
-			"nodes": [
-				{
-					"wsPort": 9988,
-					"port": 31200,
-					"name": "alice",
-					"flags": ["--", "--execution=wasm"]
-				}
-			]
-		},
-		{
-			"bin": "./bin/polkadot-collator",
-			"id": "300",
-			"balance": "1000000000000000000000",
-			"nodes": [
-				{
-					"wsPort": 9999,
-					"port": 31300,
-					"name": "alice",
-					"flags": ["--", "--execution=wasm"]
-				}
-			]
-		}
-	],
-	"simpleParachains": [
-		{
-			"bin": "./bin/adder-collator",
-			"id": "400",
-			"port": "31400",
-			"name": "alice",
-			"balance": "1000000000000000000000"
-		}
-	],
-	"hrmpChannels": [
-		{
-			"sender": 200,
-			"recipient": 300,
-			"maxCapacity": 8,
-			"maxMessageSize": 512
-		}
-	],
-	"types": {},
-	"finalization": false
+  "relaychain": {
+      "bin": "./bin/polkadot",
+      "chain": "rococo-local",
+      "nodes": [
+          {
+              "name": "alice",
+              "port": 30336,
+              "rpcPort": 9936,
+              "wsPort": 9947
+          },
+          {
+              "name": "bob",
+              "port": 30337,
+              "rpcPort": 9937,
+              "wsPort": 9948
+          },
+          {
+              "name": "charlie",
+              "port": 30338,
+              "rpcPort": 9938,
+              "wsPort": 9949
+          },
+          {
+              "name": "dave",
+              "port": 30339,
+              "rpcPort": 9939,
+              "wsPort": 9950
+          }
+      ],
+      "genesis": {
+          "runtime": {
+              "runtime_genesis_config": {
+                  "configuration": {
+                      "config": {
+                          "validation_upgrade_frequency": 10,
+                          "validation_upgrade_delay": 10
+                      }
+                  }
+              }
+          }
+      }
+  },
+  "parachains": [
+      {
+          "bin": "./bin/datahighway-collator",
+          "chain": "rococo-local",
+          "id": "2000",
+          "nodes": [
+              {
+                  "port": 31200,
+                  "rpcPort": 9911,
+                  "wsPort": 9988,
+                  "name": "eve",
+                  "flags": ["--", "--execution=wasm"]
+              }
+          ]
+      },
+      {
+          "bin": "./bin/datahighway-collator",
+          "chain": "rococo-local",
+          "id": "3000",
+          "nodes": [
+              {
+                  "port": 31300,
+                  "rpcPort": 9922,
+                  "wsPort": 9999,
+                  "name": "ferdie",
+                  "flags": ["--", "--execution=wasm"]
+              }
+          ]
+      }
+  ],
+  "hrmpChannels": [
+      {
+          "sender": 2000,
+          "recipient": 3000,
+          "maxCapacity": 8,
+          "maxMessageSize": 512
+      }
+  ],
+  "types": {},
+  "finalization": false
 }

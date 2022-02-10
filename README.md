@@ -2,6 +2,41 @@
 
 Simple CLI tool to launch a local [Polkadot](https://github.com/paritytech/polkadot/) test network.
 
+## DataHighway Parachain
+
+Run the following to setup a Rococo relay chain (rococo-local chain) with four validators (Alice, Bob, Charlie, and Dave) and two parachains, where parachain ID 2000 has one collator (Eve) and parachain ID 3000 has one collator (Ferdie)
+ 
+```
+./scripts/run_polkadot_launch.sh
+```
+
+Then use Polkadot.js to connect to one of the parachains at either:
+* https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1:9988#/accounts
+* https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1:9999#/accounts
+
+Note:
+
+* If you get the following error, then remove `"balance": "1000000000000000000000",` from each parachain in the config.json file
+```
+ExtrinsicStatus:: 1014: Priority is too low: (12482 vs 12482)
+```
+* If you are using new changes to DataHighway-DHX/DataHighway-Parachain, for example in branch 'luke/genesis-hardspoon-accounts', where we need to read from a file with `File::open` then it is necessary to copy the relevant file to the same subfolder in polkadot-launch as it was in the DataHighway-Parachain repository (i.e. `node/src/genesis.json`). Note: instead of `~/code/DataHighway-DHX/polkadot-launch` it would be better in `~/parachains/polkadot-launch`:
+```
+mkdir -p ~/parachains/polkadot-launch/node/src/
+cp ~/code/DataHighway-DHX/DataHighway-Parachain/node/src/genesis.json ~/parachains/polkadot-launch/node/src/genesis.json
+``` 
+Additionally after each change, it it necessary to build and copy the latest binary across too:
+```
+cp ~/code/DataHighway-DHX/DataHighway-Parachain/target/release/datahighway-collator ~/parachains/polkadot-launch/bin/datahighway-collator
+```
+
+Then in the polkadot-launch folder, switch to the latest Node.js version such as with the following, install the dependencies with Yarn, and run it:
+```
+nvm use v16.3.0
+yarn
+yarn start config.json
+```
+
 ## Install
 
 ```
