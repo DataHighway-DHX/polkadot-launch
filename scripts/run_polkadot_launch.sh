@@ -1,8 +1,6 @@
 #!/bin/bash
 
 cp ./config.json ~/parachains/polkadot-launch
-cp ./rococo-local-raw.json ~/parachains/polkadot-launch
-cp ./rococo-local.json ~/parachains/polkadot-launch
 
 ./scripts/setup_substrate.sh
 ./scripts/setup_rust.sh
